@@ -30,6 +30,8 @@
       bind = [
         "$mod, F, exec, firefox"
         "$mod, M, exec, mpd-launcher"
+        "$mod, Return, exec, kitty" # Launch terminal
+        "$mod, B, exec, waybar" # Launch bar
       ]
       ++ (
         # workspaces
@@ -43,6 +45,13 @@
           )
           9)
       );
+    };
+    bar = {
+      enable = true;
+      package = pkgs.waybar;
+      config = {
+        # Add your waybar configuration here
+      };
     };
   };
 
