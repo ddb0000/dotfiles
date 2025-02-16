@@ -39,7 +39,7 @@
         "$mod, Return, exec, kitty" # Launch terminal
         "$mod, F, exec, firefox" # Launch browser
         "$mod, M, exec, ~/.local/bin/mpd-launcher" # Music launcher
-        "$mod, B, exec, waybar" # Launch bar
+        "$mod, B, exec, pkill -USR1 waybar || waybar" # Toggle waybar
 
         # File Manager keybind
         "$mod, E, exec, kitty -e ranger" # Super+F: Launch Ranger in Kitty
