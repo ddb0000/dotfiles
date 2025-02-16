@@ -15,9 +15,21 @@
     zed-editor
     git-crypt
     gnupg
+    mpd
+    mpc-cli
+    yt-dlp
+    wofi # or dmenu if on X11
     # etc...
   ];
-
+  
+  # Hyprland config
+  programs.hyprland = {
+    enable = true;
+    extraConfig = ''
+      bind = SUPER, M, exec, mpd-launcher
+    '';
+  };
+  
   # Add git config
   programs.git = {
     enable = true;
@@ -32,35 +44,33 @@
   };
 
   # Home Manager managing dotfiles.
-  home.file = {
-    # # Building this configuration will create a copy of 'dotfiles/screenrc' in
-    # # the Nix store. Activating the configuration will then make '~/.screenrc' a
-    # # symlink to the Nix store copy.
-    # ".screenrc".source = dotfiles/screenrc;
+  home.file.".config/mpd-sources/sources.txt".text = ''
+    YouTube https://www.youtube.com/watch?v=dQw4w9WgXcQ
+    Lofi https://www.youtube.com/watch?v=jfKfPfyJRdk
+    Jazz https://www.youtube.com/watch?v=Dx5qFachd3A
+    Synthwave https://www.youtube.com/watch?v=vc3s6wJklb0
+  '';
 
-    # # You can also set the file content immediately.
-    # ".gradle/gradle.properties".text = ''
-    #   org.gradle.console=verbose
-    #   org.gradle.daemon.idletimeout=3600000
-    # '';
-  };
+  home.file.".local/bin/mpd-launcher".text = ''
+  #!/bin/sh
+  MENU="wofi --dmenu"
+  [ -n "$XDG_SESSION_TYPE" ] && [ "$XDG_SESSION_TYPE" = "x11" ] && MENU="dmenu"
 
-  # Home Manager can also manage environment variables through
-  # 'home.sessionVariables'. These will be explicitly sourced when using a
-  # shell provided by Home Manager. If you don't want to manage shell
-  # through Home Manager then you have to manually source 'hm-session-vars.sh'
-  # located at either
-  #
-  #  ~/.nix-profile/etc/profile.d/hm-session-vars.sh
-  #
-  # or
-  #
-  #  ~/.local/state/nix/profiles/profile/etc/profile.d/hm-session-vars.sh
-  #
-  # or
-  #
-  #  /etc/profiles/per-user/dan/etc/profile.d/hm-session-vars.sh
-  #
+  choice=$(cut -d ' ' -f1 ~/.config/mpd-sources/sources.txt | $MENU)
+  [ -z "$choice" ] && exit 1
+
+  url=$(grep "^$choice " ~/.config/mpd-sources/sources.txt | cut -d ' ' -f2-)
+  [ -z "$url" ] && exit 1
+
+  audio_url=$(yt-dlp -f 'bestaudio' -g "$url")
+  mpc clear
+  mpc add "$audio_url"
+  mpc play
+  '';
+
+  home.file.".local/bin/mpd-launcher".executable = true;
+
+
   home.sessionVariables = {
     # EDITOR = "emacs";
   };
