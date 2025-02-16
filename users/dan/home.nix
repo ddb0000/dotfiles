@@ -67,7 +67,6 @@
       );
     };
     extraConfig = ''
-      exec = waybar
       exec-once = swww init # Initialize swww wallpaper manager
     '';
   };
