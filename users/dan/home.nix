@@ -43,7 +43,7 @@
         "$mod, M, exec, ~/.local/bin/mpd-launcher" # Music launcher
         "$mod, B, exec, pkill -USR1 waybar || waybar" # Toggle waybar
 
-        "$mod, Print, exec, grim - | wl-copy" # Fullscreen screenshot to clipboard
+        "$mod, S, exec, grim - | wl-copy" # Fullscreen screenshot to clipboard
         # File Manager keybind
         "$mod, E, exec, kitty -e ranger" # Super+F: Launch Ranger in Kitty
       ]
