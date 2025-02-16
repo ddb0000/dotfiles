@@ -109,8 +109,6 @@
     extraGroups = [ "networkmanager" "wheel" ];
   };
 
-  # Install firefox.
-  programs.firefox.enable = true;
 
   # Environment Variables for Wayland Apps
   environment.sessionVariables = {

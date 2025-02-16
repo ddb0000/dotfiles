@@ -10,6 +10,9 @@
   nixpkgs.config.allowUnfree = true;
   # The home.packages option to install Nix packages
   home.packages = with pkgs; [
+    firefox
+    hyprland
+    waybar
     kitty
     vscode
     zed-editor
@@ -63,6 +66,33 @@
     ];
   };
 
+  home.pointerCursor = {
+    gtk.enable = true;
+    # x11.enable = true;
+    package = pkgs.bibata-cursors;
+    name = "Bibata-Modern-Classic";
+    size = 16;
+  };
+
+  gtk = {
+    enable = true;
+
+    theme = {
+      package = pkgs.flat-remix-gtk;
+      name = "Flat-Remix-GTK-Grey-Darkest";
+    };
+
+    iconTheme = {
+      package = pkgs.adwaita-icon-theme;
+      name = "Adwaita";
+    };
+
+    font = {
+      name = "Sans";
+      size = 11;
+    };
+  };
+
   # Add git config
   programs.git = {
     enable = true;
@@ -75,6 +105,9 @@
     enable = true;
     package = pkgs.gh;
   };
+
+  # Install firefox.
+  programs.firefox.enable = true;
 
   # Home Manager managing dotfiles.
   home.file.".config/mpd-sources/sources.txt".text = ''
