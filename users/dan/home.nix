@@ -1,53 +1,34 @@
 { config, pkgs, ... }:
 
-{
-  home.username = "dan";
-  home.homeDirectory = "/home/dan";
-
-  # DO NOT CHANGE
-  home.stateVersion = "24.11"; # DO NOT CHANGE
-
-  nixpkgs.config.allowUnfree = true;
-  # The home.packages option to install Nix packages
-  home.packages = with pkgs; [
-    firefox
-    hyprland
-    waybar
-    kitty
-    vscode
-    git-crypt
-    gnupg
-    mpd
-    mpc-cli
-    yt-dlp
-    wofi # or dmenu if on X11
-
-    # Music and Wallpaper
-    swww
-
-    # Screenshot tools
-    grim
-    slurp
-    wl-clipboard
-
-    # File Manager
-    ranger
-  ];
-
-  # Temporary screenshot solution
-  home.file.".local/bin/screenshot_full".source = pkgs.writeShellScriptBin {
-    name = "screenshot_full"; # Script name (will be available as 'screenshot_full' in PATH)
+let
+  screenshot_full_script = pkgs.writeShellScriptBin {
+    name = "screenshot_full";
     text = ''
       grim - | wl-copy
     '';
   };
 
-  home.file.".local/bin/screenshot_region".source = pkgs.writeShellScriptBin {
+  screenshot_region_script = pkgs.writeShellScriptBin {
     name = "screenshot_region";
     text = ''
       grim -g "$(slurp)" - | wl-copy
     '';
   };
+
+in
+{
+  home.username = "dan";
+  home.homeDirectory = "/home/dan";
+  home.stateVersion = "24.11";
+  nixpkgs.config.allowUnfree = true;
+
+  home.packages = with pkgs; [
+    # ... other packages ...
+    grim
+    slurp
+    wl-clipboard
+    ranger
+  ];
 
   # Hyprland Confs
   wayland.windowManager.hyprland = {
@@ -55,34 +36,30 @@
     settings = {
       "$mod" = "SUPER";
       bind = [
-        "$mod, W, killactive" # Close window
-        "$mod, Return, exec, kitty" # Launch terminal
-        "$mod, F, exec, firefox" # Launch browser
-        "$mod, M, exec, ~/.local/bin/mpd-launcher" # Music launcher
-        "$mod, B, exec, waybar" # Launch bar
+        "$mod, W, killactive"
+        "$mod, Return, exec, kitty"
+        "$mod, F, exec, firefox"
+        "$mod, M, exec, ~/.local/bin/mpd-launcher"
+        # Removed: "$mod, B, exec, waybar"
 
-        # Screenshot keybinds - EXPLICITLY INVOKE SHELL
-        "Print, exec, 'grim - | wl-copy'" # Print Screen: Full screen screenshot to clipboard
-        "Shift + Print, exec, 'grim -g \"\\$(slurp)\" - | wl-copy'" # Shift+Print: Region screenshot to clipboard
+        # Screenshot keybinds - EXECUTE NIX-GENERATED SHELL SCRIPTS
+        "Print, exec, ${screenshot_full_script}/bin/screenshot_full"
+        "Shift + Print, exec, ${screenshot_region_script}/bin/screenshot_region"
 
-        # File Manager keybind
-        "$mod, E, exec, kitty -e ranger" # Super+F: Launch Ranger in Kitty
+        "$mod, E, exec, kitty -e ranger"
       ]
       ++ (
-        # workspaces
-        # binds $mod + [shift +] {1..9} to [move to] workspace {1..9}
         builtins.concatLists (builtins.genList (i:
           let ws = i + 1;
           in [
             "$mod, code:1${toString i}, workspace, ${toString ws}"
             "$mod SHIFT, code:1${toString i}, movetoworkspace, ${toString ws}"
           ]
-        )
-        9)
+        ) 9)
       );
     };
     extraConfig = ''
-      exec-once = swww init # Initialize swww wallpaper manager
+      exec-once = swww init
     '';
   };
 
@@ -91,7 +68,7 @@
     package = pkgs.waybar;
     settings = [
       {
-        layer = "top";  # Ensure it's always visible
+        layer = "top";
         position = "top";
         modules-left = [ "hyprland/workspaces" ];
         modules-center = [ "clock" ];
