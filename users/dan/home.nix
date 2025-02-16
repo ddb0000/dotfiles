@@ -21,7 +21,18 @@
     mpc-cli
     yt-dlp
     wofi # or dmenu if on X11
-    # etc...
+
+    # Music and Wallpaper
+    swww
+    waybar-mpd # Waybar MPD module
+
+    # Screenshot tools
+    grim
+    slurp
+    wl-clipboard # Wayland clipboard tool, needed for grim to copy to clipboard
+
+    # File Manager
+    ranger
   ];
   
   # Hyprland Confs
@@ -35,6 +46,13 @@
         "$mod, F, exec, firefox" # Launch browser
         "$mod, M, exec, ~/.local/bin/mpd-launcher" # Music launcher
         "$mod, B, exec, waybar" # Launch bar
+        
+        # Screenshot keybinds
+        "Print, exec, grim - | wl-copy" # Print Screen: Full screen screenshot to clipboard
+        "Shift + Print, exec, grim -g \"\$(slurp)\" - | wl-copy" # Shift+Print: Region screenshot to clipboard
+
+        # File Manager keybind
+        "$mod, F, exec, kitty -e ranger" # Super+F: Launch Ranger in Kitty
       ]
       ++ (
         # workspaces
