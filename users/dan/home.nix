@@ -23,7 +23,6 @@
     grim
     slurp
     wl-clipboard
-    clipboard
 
     # Music and Wallpaper
     swww
