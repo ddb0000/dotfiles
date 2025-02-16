@@ -46,13 +46,11 @@
           9)
       );
     };
-    bar = {
-      enable = true;
-      package = pkgs.waybar;
-      config = {
-        # Add your waybar configuration here
-      };
-    };
+  };
+
+  programs.waybar = {
+    enable = true;
+    package = pkgs.waybar;
   };
 
   # Add git config
