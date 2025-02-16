@@ -40,16 +40,15 @@
         "$mod, W, killactive" # Close window
         "$mod, Return, exec, kitty" # Launch terminal
         "$mod, F, exec, firefox" # Launch browser
-        "$mod, M, exec, ~/.local/bin/mpd-launcher" # Music launcher
         "$mod, B, exec, pkill -USR1 waybar || waybar" # Toggle waybar
 
         "$mod, S, exec, grim - | wl-copy" # Fullscreen screenshot to clipboard
         # File Manager keybind
         "Shift + $mod, S, exec, grim -g \"$(slurp)\" - | wl-copy" # Selectable screenshot to clipboard <--- NEW KEYBINDING
 
-        "$mod, D, exec, wofi --show drun" # Launch application launcher
-        "$mod, R, exec, wofi --show run" # Launch command launcher
-        "$mod, E, exec, kitty -e ranger" # Super+F: Launch Ranger in Kitty
+        "$mod, D, exec, pkill -USR1 wofi || wofi --show drun" # Toggle application launcher
+        "$mod, R, exec, pkill -USR1 wofi || wofi --show run" # Toggle command launcher
+        "$mod, E, exec, pkill -USR1 kitty || kitty -e ranger" # Toggle Ranger in Kitty
       ]
       ++ (
         # workspaces
