@@ -33,10 +33,6 @@
     # File Manager
     ranger
   ];
-
-  home.services.mpd = {
-    enable = true; # Enable the service
-  };
   
   # Hyprland Confs
   wayland.windowManager.hyprland = {
