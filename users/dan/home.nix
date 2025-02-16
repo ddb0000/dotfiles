@@ -43,8 +43,8 @@ in
         # Removed: "$mod, B, exec, waybar"
 
         # Screenshot keybinds - EXECUTE NIX-GENERATED SHELL SCRIPTS
-        "Print, exec, ${screenshot_full_script}/bin/screenshot_full"
-        "Shift + Print, exec, ${screenshot_region_script}/bin/screenshot_region"
+        "Print, exec, ${screenshot_full_script.outPath}/bin/screenshot_full"
+        "Shift + Print, exec, ${screenshot_region_script.outPath}/bin/screenshot_region"
 
         "$mod, E, exec, kitty -e ranger"
       ]
