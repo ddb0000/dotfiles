@@ -33,6 +33,33 @@
     # File Manager
     ranger
   ];
+  services.mpd.config = {
+    music_directory = "/home/dan/Downloads/music"; # Set your music directory
+    playlist_directory = "~/.config/mpd/playlists"; # Playlist directory
+    db_file            = "~/.config/mpd/database";
+    log_file           = "~/.config/mpd/log";
+    pid_file           = "~/.config/mpd/pid";
+    state_file         = "~/.config/mpd/state";
+    sticker_file       = "~/.config/mpd/sticker.sql";
+
+    audio_output = [
+      {
+        type             = "pipewire";
+        name             = "pipewire";
+      }
+    ];
+
+    # Optional: Enable album art support (requires ffmpegthumbnailer in systemPackages or home.packages)
+    #audio_output {
+    #    type        "fifo"
+    #    name        "albumart"
+    #    path        "/tmp/mpd.fifo"
+    #    format      "44100:24:2"
+    #}
+
+    filesystem_charset = "UTF-8";
+    id3v1_encoding     = "UTF-8";
+  };
   
   # Hyprland Confs
   wayland.windowManager.hyprland = {
