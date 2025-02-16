@@ -24,7 +24,6 @@
 
     # Music and Wallpaper
     swww
-    waybar-mpd # Waybar MPD module
 
     # Screenshot tools
     grim
@@ -46,7 +45,7 @@
         "$mod, F, exec, firefox" # Launch browser
         "$mod, M, exec, ~/.local/bin/mpd-launcher" # Music launcher
         "$mod, B, exec, waybar" # Launch bar
-        
+
         # Screenshot keybinds
         "Print, exec, grim - | wl-copy" # Print Screen: Full screen screenshot to clipboard
         "Shift + Print, exec, grim -g \"\$(slurp)\" - | wl-copy" # Shift+Print: Region screenshot to clipboard
