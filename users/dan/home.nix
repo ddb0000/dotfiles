@@ -78,9 +78,9 @@
         "$mod, M, exec, ~/.local/bin/mpd-launcher" # Music launcher
         "$mod, B, exec, waybar" # Launch bar
 
-        # Screenshot keybinds
-        "Print, exec, grim - | wl-copy" # Print Screen: Full screen screenshot to clipboard
-        "Shift + Print, exec, grim -g \"\$(slurp)\" - | wl-copy" # Shift+Print: Region screenshot to clipboard
+        # Screenshot keybinds - EXPLICITLY INVOKE SHELL
+        "Print, exec, sh -c 'grim - | wl-copy'" # Print Screen: Full screen screenshot to clipboard
+        "Shift + Print, exec, sh -c 'grim -g \"\\$(slurp)\" - | wl-copy'" # Shift+Print: Region screenshot to clipboard
 
         # File Manager keybind
         "$mod, F, exec, kitty -e ranger" # Super+F: Launch Ranger in Kitty
@@ -89,13 +89,13 @@
         # workspaces
         # binds $mod + [shift +] {1..9} to [move to] workspace {1..9}
         builtins.concatLists (builtins.genList (i:
-            let ws = i + 1;
-            in [
-              "$mod, code:1${toString i}, workspace, ${toString ws}"
-              "$mod SHIFT, code:1${toString i}, movetoworkspace, ${toString ws}"
-            ]
-          )
-          9)
+          let ws = i + 1;
+          in [
+            "$mod, code:1${toString i}, workspace, ${toString ws}"
+            "$mod SHIFT, code:1${toString i}, movetoworkspace, ${toString ws}"
+          ]
+        )
+        9)
       );
     };
     extraConfig = ''
