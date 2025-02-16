@@ -22,8 +22,9 @@
     # Screenshots
     grim
     slurp
-    swappy
     wl-clipboard
+    clipboard
+
     # Music and Wallpaper
     swww
 
@@ -45,6 +46,10 @@
 
         "$mod, S, exec, grim - | wl-copy" # Fullscreen screenshot to clipboard
         # File Manager keybind
+        "Shift + $mod, S, exec, grim -g \"$(slurp)\" - | wl-copy" # Selectable screenshot to clipboard <--- NEW KEYBINDING
+
+        "$mod, D, exec, wofi --show drun" # Launch application launcher
+        "$mod, R, exec, wofi --show run" # Launch command launcher
         "$mod, E, exec, kitty -e ranger" # Super+F: Launch Ranger in Kitty
       ]
       ++ (
