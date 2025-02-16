@@ -33,7 +33,7 @@
         "$mod, W, killactive" # Close window
         "$mod, Return, exec, kitty" # Launch terminal
         "$mod, F, exec, firefox" # Launch browser
-        "$mod, M, exec, mpd-launcher" # Launch music
+        "$mod, M, exec, ~/.local/bin/mpd-launcher" # Music launcher
         "$mod, B, exec, waybar" # Launch bar
       ]
       ++ (
