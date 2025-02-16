@@ -27,7 +27,6 @@
     gh
     gnupg
     gimp
-    vlc
     # etc...
 
 
