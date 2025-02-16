@@ -10,13 +10,11 @@
   nixpkgs.config.allowUnfree = true;
   # The home.packages option to install Nix packages
   home.packages = with pkgs; [
-    # kitty
-    alacritty
+    kitty
     vscode
     zed-editor
     git-crypt
     gnupg
-    gimp
     # etc...
   ];
 
@@ -27,8 +25,7 @@
     userEmail = "nocivic@proton.me";
   };
 
-
-  # And GH CLI
+  # Add GH CLI
   programs.gh = {
     enable = true;
     package = pkgs.gh;

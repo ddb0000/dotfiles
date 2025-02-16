@@ -6,9 +6,6 @@ nix flake update
 ## Rebuild:
 nixos-rebuild switch --flake .
 
-## Clean up old generations:
-
-
 # Updating the System
 ## Update flake.lock
 nix flake update

@@ -1,7 +1,3 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
 { config, pkgs, ... }:
 
 {
@@ -20,7 +16,7 @@
     dates = "weekly";
     options = "--delete-older-than 1w";
   };
-  
+
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
@@ -59,6 +55,13 @@
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
 
+  # Hyprland config
+  programs.hyprland = {
+    enable = true;
+    withUWSM = true;
+    xwayland.enable = true;
+  };
+
   # Configure keymap in X11
   services.xserver.xkb = {
     layout = "br";
@@ -87,13 +90,6 @@
     #media-session.enable = true;
   };
 
-  # Hyprland config
-  programs.hyprland = {
-    enable = true;
-    withUWSM = true;
-    xwayland.enable = true;
-  };
-
   # NVIDIA
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia = {
@@ -115,7 +111,6 @@
 
   # Install firefox.
   programs.firefox.enable = true;
-
 
   # Environment Variables for Wayland Apps
   environment.sessionVariables = {
