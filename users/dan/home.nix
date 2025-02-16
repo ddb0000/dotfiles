@@ -12,7 +12,6 @@
   home.packages = with pkgs; [
     firefox
     hyprland
-    waybar
     kitty
     vscode
     git-crypt
