@@ -83,7 +83,7 @@
         "Shift + Print, exec, sh -c 'grim -g \"\\$(slurp)\" - | wl-copy'" # Shift+Print: Region screenshot to clipboard
 
         # File Manager keybind
-        "$mod, F, exec, kitty -e ranger" # Super+F: Launch Ranger in Kitty
+        "$mod, E, exec, kitty -e ranger" # Super+F: Launch Ranger in Kitty
       ]
       ++ (
         # workspaces
