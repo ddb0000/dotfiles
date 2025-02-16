@@ -28,9 +28,10 @@
     settings = {
       "$mod" = "SUPER";
       bind = [
-        "$mod, F, exec, firefox"
-        "$mod, M, exec, mpd-launcher"
+        "$mod, W, killactive" # Close window
         "$mod, Return, exec, kitty" # Launch terminal
+        "$mod, F, exec, firefox" # Launch browser
+        "$mod, M, exec, mpd-launcher" # Launch music
         "$mod, B, exec, waybar" # Launch bar
       ]
       ++ (
@@ -51,6 +52,15 @@
   programs.waybar = {
     enable = true;
     package = pkgs.waybar;
+    settings = [
+      {
+        layer = "top";  # Ensure it's always visible
+        position = "top";
+        modules-left = [ "hyprland/workspaces" ];
+        modules-center = [ "clock" ];
+        modules-right = [ "pulseaudio" "network" "battery" ];
+      }
+    ];
   };
 
   # Add git config
