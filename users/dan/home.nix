@@ -22,11 +22,12 @@
     # kitty
     alacritty
     vscode
-    git
-    gh
+    zed-editor
     git-crypt
+    gh
     gnupg
-
+    gimp
+    vlc
     # etc...
 
 

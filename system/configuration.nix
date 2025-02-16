@@ -104,10 +104,6 @@
     isNormalUser = true;
     description = "dan";
     extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [
-    zed-editor
-    # etc...
-    ];
   };
 
   # Install firefox.
@@ -122,17 +118,21 @@
     NIXOS_OZONE_WL = "1";
   };
 
+  # Enable Flakes
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    # Basic 
+    # Basic
+    git
     wget
     vim
     # Language Servers
     nixd
     nil
-    gimp
     # etc...
+    google-chrome
+
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
