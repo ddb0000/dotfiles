@@ -51,7 +51,7 @@
   # Enable MPD
   services.mpd = {
     enable = true;
-    musicDirectory = "~/Downloads/music"; # Optional system-wide music directory
+    musicDirectory = "/Downloads/music"; # Optional system-wide music directory
     extraConfig = ''
       audio_output {
         type "pipewire"
