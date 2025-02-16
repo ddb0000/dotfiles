@@ -28,12 +28,27 @@
     # Screenshot tools
     grim
     slurp
-    wl-clipboard # Wayland clipboard tool, needed for grim to copy to clipboard
+    wl-clipboard
 
     # File Manager
     ranger
   ];
-  
+
+  # Temporary screenshot solution
+  home.file.".local/bin/screenshot_full".source = pkgs.writeShellScriptBin {
+    name = "screenshot_full"; # Script name (will be available as 'screenshot_full' in PATH)
+    text = ''
+      grim - | wl-copy
+    '';
+  };
+
+  home.file.".local/bin/screenshot_region".source = pkgs.writeShellScriptBin {
+    name = "screenshot_region";
+    text = ''
+      grim -g "$(slurp)" - | wl-copy
+    '';
+  };
+
   # Hyprland Confs
   wayland.windowManager.hyprland = {
     enable = true;
@@ -47,8 +62,8 @@
         "$mod, B, exec, waybar" # Launch bar
 
         # Screenshot keybinds - EXPLICITLY INVOKE SHELL
-        "Print, exec, sh -c 'grim - | wl-copy'" # Print Screen: Full screen screenshot to clipboard
-        "Shift + Print, exec, sh -c 'grim -g \"\\$(slurp)\" - | wl-copy'" # Shift+Print: Region screenshot to clipboard
+        "Print, exec, 'grim - | wl-copy'" # Print Screen: Full screen screenshot to clipboard
+        "Shift + Print, exec, 'grim -g \"\\$(slurp)\" - | wl-copy'" # Shift+Print: Region screenshot to clipboard
 
         # File Manager keybind
         "$mod, E, exec, kitty -e ranger" # Super+F: Launch Ranger in Kitty
