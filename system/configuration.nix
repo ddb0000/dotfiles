@@ -51,7 +51,7 @@
   # Enable MPD
   services.mpd = {
     enable = true;
-    musicDirectory = "/Downloads/music"; # Optional system-wide music directory
+    musicDirectory = "/home/dan/Downloads/music"; # Optional system-wide music directory
     extraConfig = ''
       audio_output {
         type "pipewire"
@@ -61,7 +61,7 @@
     # network.listenAddress = "any"; # if you want network access (optional)
     # network.startWhenNeeded = true; # systemd activation (optional)
   };
-
+  users.users.mpd.extraGroups = [ "audio" ]; # Add mpd user to audio group declaratively
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
