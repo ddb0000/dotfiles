@@ -10,8 +10,6 @@
   nixpkgs.config.allowUnfree = true;
   # The home.packages option to install Nix packages
   home.packages = with pkgs; [
-    firefox
-    hyprland
     kitty
     vscode
     git-crypt
@@ -61,6 +59,7 @@
     '';
   };
 
+  # Add waybar
   programs.waybar = {
     enable = true;
     package = pkgs.waybar;
@@ -75,6 +74,7 @@
     ];
   };
 
+  # Set the cursor theme.
   home.pointerCursor = {
     gtk.enable = true;
     # x11.enable = true;
@@ -83,6 +83,7 @@
     size = 12;
   };
 
+  # Set the GTK theme, icon theme and font.
   gtk = {
     enable = true;
 
