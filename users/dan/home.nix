@@ -15,7 +15,6 @@
     waybar
     kitty
     vscode
-    zed-editor
     git-crypt
     gnupg
     mpd
