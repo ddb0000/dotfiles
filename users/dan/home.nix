@@ -1,32 +1,31 @@
 { config, pkgs, ... }:
 
-let
-  screenshot_full_script = pkgs.writeShellScriptBin {
-    name = "screenshot_full";
-    text = ''
-      grim - | wl-copy
-    '';
-  };
-
-  screenshot_region_script = pkgs.writeShellScriptBin {
-    name = "screenshot_region";
-    text = ''
-      grim -g "$(slurp)" - | wl-copy
-    '';
-  };
-
-in
 {
   home.username = "dan";
   home.homeDirectory = "/home/dan";
-  home.stateVersion = "24.11";
-  nixpkgs.config.allowUnfree = true;
 
+  # DO NOT CHANGE
+  home.stateVersion = "24.11"; # DO NOT CHANGE
+
+  nixpkgs.config.allowUnfree = true;
+  # The home.packages option to install Nix packages
   home.packages = with pkgs; [
-    # ... other packages ...
-    grim
-    slurp
-    wl-clipboard
+    firefox
+    hyprland
+    waybar
+    kitty
+    vscode
+    git-crypt
+    gnupg
+    mpd
+    mpc-cli
+    yt-dlp
+    wofi # or dmenu if on X11
+
+    # Music and Wallpaper
+    swww
+
+    # File Manager
     ranger
   ];
 
@@ -36,30 +35,30 @@ in
     settings = {
       "$mod" = "SUPER";
       bind = [
-        "$mod, W, killactive"
-        "$mod, Return, exec, kitty"
-        "$mod, F, exec, firefox"
-        "$mod, M, exec, ~/.local/bin/mpd-launcher"
-        # Removed: "$mod, B, exec, waybar"
+        "$mod, W, killactive" # Close window
+        "$mod, Return, exec, kitty" # Launch terminal
+        "$mod, F, exec, firefox" # Launch browser
+        "$mod, M, exec, ~/.local/bin/mpd-launcher" # Music launcher
+        "$mod, B, exec, waybar" # Launch bar
 
-        # Screenshot keybinds - EXECUTE NIX-GENERATED SHELL SCRIPTS
-        "Print, exec, ${screenshot_full_script.outPath}/bin/screenshot_full"
-        "Shift + Print, exec, ${screenshot_region_script.outPath}/bin/screenshot_region"
-
-        "$mod, E, exec, kitty -e ranger"
+        # File Manager keybind
+        "$mod, E, exec, kitty -e ranger" # Super+F: Launch Ranger in Kitty
       ]
       ++ (
+        # workspaces
+        # binds $mod + [shift +] {1..9} to [move to] workspace {1..9}
         builtins.concatLists (builtins.genList (i:
           let ws = i + 1;
           in [
             "$mod, code:1${toString i}, workspace, ${toString ws}"
             "$mod SHIFT, code:1${toString i}, movetoworkspace, ${toString ws}"
           ]
-        ) 9)
+        )
+        9)
       );
     };
     extraConfig = ''
-      exec-once = swww init
+      exec-once = swww init # Initialize swww wallpaper manager
     '';
   };
 
@@ -68,7 +67,7 @@ in
     package = pkgs.waybar;
     settings = [
       {
-        layer = "top";
+        layer = "top";  # Ensure it's always visible
         position = "top";
         modules-left = [ "hyprland/workspaces" ];
         modules-center = [ "clock" ];
