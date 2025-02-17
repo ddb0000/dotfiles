@@ -25,6 +25,7 @@
 
     # Music and Wallpaper
     swww
+    hyprpaper
 
     # File Manager
     ranger
@@ -99,6 +100,17 @@
         };
       }
     ];
+  };
+
+  # Hyprpaper config
+  services.hyprpaper = {
+    enable = true;
+    package = pkgs.hyprpaper;
+    settings = {
+      preload = [ "/home/dan/Pictures/wallpapers/bebop.png" ]; # Preload wallpaper
+      wallpaper = [ "DP-2,/home/dan/Pictures/wallpapers/bebop.png" ]; # Corrected wallpaper setting
+      interval = 600;
+    };
   };
 
   # Set the cursor theme.
