@@ -28,6 +28,10 @@
 
     # File Manager
     ranger
+
+    # Power menu
+    wlogout
+    pavucontrol
   ];
 
   # Hyprland Confs
@@ -52,6 +56,8 @@
         "$mod, D, exec, pkill -USR1 wofi || wofi --show drun" # Toggle application launcher
         "$mod, R, exec, pkill -USR1 wofi || wofi --show run" # Toggle command launcher
         "$mod, E, exec, pidof kitty && pkill kitty || kitty ranger" # Toggle file manager
+        "$mod, L, exec, wlogout" # Power menu
+        "$mod, U, exec, pidof pavucontrol && pkill pavucontrol || pavucontrol" # Toggle audio control panel
       ]
       ++ (
         # workspaces
@@ -78,11 +84,19 @@
     package = pkgs.waybar;
     settings = [
       {
-        layer = "top";  # Ensure it's always visible
+        layer = "top";
         position = "top";
         modules-left = [ "hyprland/workspaces" ];
         modules-center = [ "clock" ];
-        modules-right = [ "pulseaudio" "network" "battery" ];
+        modules-right = [ "pulseaudio" "tray" ];
+        pulseaudio = {
+          format = "{icon} {volume}%";
+          format-muted = "󰝟";
+          on-click = "pidof pavucontrol && pkill pavucontrol || pavucontrol";  # Toggle Pavucontrol
+          format-icons = {
+            default = [ "" "" "" ];
+          };
+        };
       }
     ];
   };
