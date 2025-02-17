@@ -1,9 +1,16 @@
 # TODO
 ## active
-- [ ] Add blur to windows
+- [x] Waybar and Hyprland customization (reduce gaps, shortcuts for tiling/floating)
+
+- [x] Add blur to windows
+
+- [ ] Waybar customization (add night mode by default)
+- [ ] Add night mode by default (system-wide dark mode)
+
 - [ ] Add media player (ncmcpp, cava, etc.)
-- [ ] Waybar and Hyprland customization (reduce gaps, shortcuts for tiling/floating)
+
 - [ ] Clean VM setup
+
 - [ ] System cleanup and maintenance (scheduled garbage collection)
 
 ## backlog

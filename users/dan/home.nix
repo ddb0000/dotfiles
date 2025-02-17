@@ -37,12 +37,31 @@
   # Hyprland Confs
   wayland.windowManager.hyprland = {
     enable = true;
+    systemd.enable = true;
+    xwayland.enable = true;
     settings = {
+      general = {
+        snap.enabled = true;
+        resize_on_border = true;
+        gaps_in = 2;
+        gaps_out = 10;
+      };
+      decoration = {
+        active_opacity = 0.9;
+        inactive_opacity = 0.8;
+      };
       "$mod" = "SUPER";
       input = {
         kb_layout = "br";
         kb_variant = "abnt2";
+        numlock_by_default = true;
+        follow_mouse =  2;
       };
+      cursor.no_warps = true;
+      bindm = [
+        "$mod, mouse:272, movewindow"
+        "$mod, mouse:273, resizewindow"
+      ];
       bind = [
         "$mod, W, killactive" # Close window
         "$mod, Return, exec, kitty" # Launch terminal
@@ -59,6 +78,26 @@
         "$mod, L, exec, hyprlock " # Lock screen
         "$mod, P, exec, wlogout" # Launch power menu
         "$mod, U, exec, pidof pavucontrol && pkill pavucontrol || pavucontrol" # Toggle audio control panel
+
+        # Window layout toggles
+        "$mod ALT, F, togglefloating"
+        "$mod SHIFT, F, fullscreen"
+        # Window movement
+        "$mod, left, movefocus, l"
+        "$mod, right, movefocus, r"
+        "$mod, up, movefocus, u"
+        "$mod, down, movefocus, d"
+        "$mod SHIFT, left, movewindow, l"
+        "$mod SHIFT, right, movewindow, r"
+        "$mod SHIFT, up, movewindow, u"
+        "$mod SHIFT, down, movewindow, d"
+
+        # Toggle opacity ($mod + O = enable, $mod + SHIFT + O = disable)
+        "$mod SHIFT, O, exec, hyprctl keyword decoration:active_opacity 1.0"
+        "$mod SHIFT, O, exec, hyprctl keyword decoration:inactive_opacity 1.0"
+        "$mod, O, exec, hyprctl keyword decoration:active_opacity 0.9"
+        "$mod, O, exec, hyprctl keyword decoration:inactive_opacity 0.8"
+
       ]
       ++ (
         # workspaces
@@ -88,13 +127,19 @@
         position = "top";
         modules-left = [ "hyprland/workspaces" ];
         modules-center = [ "clock" ];
-        modules-right = [ "pulseaudio" "tray" ];
+        modules-right = [ "pulseaudio" ];
         pulseaudio = {
           format = "{volume}%";
-          on-click = "pidof pavucontrol && pkill pavucontrol || pavucontrol";  # Toggle Pavucontrol
+          # Toggle Pavucontrol
+          on-click = "pidof pavucontrol && pkill pavucontrol || pavucontrol";
         };
       }
     ];
+    style = ''
+    window.waybar {
+      background-color: rgba(0, 0, 0, 0.8);
+    }
+    '';
   };
 
   # Hyprpaper config
@@ -141,7 +186,7 @@
           shadow_passes = 1;
           placeholder_text = "?";
           fail_text = "nope";
-          inner_color = "rgba(0, 0, 0, 0.5)";
+          inner_color = "rgba(0, 0, 0, 0)";
           outer_color = "rgba(255, 255, 255, 0.5)";
           font_color = "rgba(255, 255, 255, 0.8)";
         }
