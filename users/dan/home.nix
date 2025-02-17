@@ -44,11 +44,11 @@
 
         "$mod, S, exec, grim - | wl-copy" # Fullscreen screenshot to clipboard
         # File Manager keybind
-        "Shift + $mod, S, exec, grim -g \"$(slurp)\" - | wl-copy" # Selectable screenshot to clipboard <--- NEW KEYBINDING
+        "Shift + $mod, S, exec, grim -g \"$(slurp)\" - | wl-copy" # Selectable screenshot to clipboard
 
         "$mod, D, exec, pkill -USR1 wofi || wofi --show drun" # Toggle application launcher
         "$mod, R, exec, pkill -USR1 wofi || wofi --show run" # Toggle command launcher
-        "$mod, E, exec, pidof kitty && pkill kitty || kitty ranger"
+        "$mod, E, exec, pidof kitty && pkill kitty || kitty ranger" # Toggle file manager
       ]
       ++ (
         # workspaces
