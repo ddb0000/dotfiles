@@ -19,7 +19,7 @@
             # Include the home-manager module.
             home-manager.nixosModules.home-manager
             {
-              #home-manager.useGlobalPkgs = true;
+              home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.users.dan = import ./users/dan/home.nix;
               home-manager.backupFileExtension = "bak";

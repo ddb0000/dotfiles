@@ -7,7 +7,6 @@
   # DO NOT CHANGE
   home.stateVersion = "24.11"; # DO NOT CHANGE
 
-  nixpkgs.config.allowUnfree = true;
   # The home.packages option to install Nix packages
   home.packages = with pkgs; [
     kitty
