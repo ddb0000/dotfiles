@@ -115,6 +115,7 @@
     extraConfig = ''
       exec-once = swww init # Initialize swww wallpaper manager
       exec-once = waybar # Auto-start waybar
+      exec-once = hyprctl setcursor Bibata-Original-Classic 20 # Set cursor theme
     '';
   };
 
@@ -127,7 +128,7 @@
         position = "top";
         modules-left = [ "hyprland/workspaces" ];
         modules-center = [ "clock" ];
-        modules-right = [ "pulseaudio" ];
+        modules-right = [ "backlight/slider" "pulseaudio" ];
         pulseaudio = {
           format = "{volume}%";
           # Toggle Pavucontrol
@@ -218,10 +219,10 @@
 
   # Set the cursor theme.
   home.pointerCursor = {
-    gtk.enable = true;
+    hyprcursor.enable = true;
     # x11.enable = true;
     package = pkgs.bibata-cursors;
-    name = "Bibata-Modern-Classic";
+    name = "Bibata-Original-Classic";
     size = 12;
   };
 
