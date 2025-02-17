@@ -48,7 +48,7 @@
 
         "$mod, D, exec, pkill -USR1 wofi || wofi --show drun" # Toggle application launcher
         "$mod, R, exec, pkill -USR1 wofi || wofi --show run" # Toggle command launcher
-        "$mod, E, exec, pkill -USR1 kitty || kitty -e ranger" # Toggle Ranger in Kitty
+        "$mod, E, exec, pidof kitty && pkill kitty || kitty ranger"
       ]
       ++ (
         # workspaces
