@@ -17,7 +17,7 @@
     mpc-cli
     yt-dlp
     wofi # or dmenu if on X11
-
+    microfetch
     # Screenshots
     grim
     slurp
@@ -48,7 +48,7 @@
       };
       decoration = {
         active_opacity = 0.9;
-        inactive_opacity = 0.8;
+        inactive_opacity = 0.7;
       };
       "$mod" = "SUPER";
       input = {
@@ -96,7 +96,7 @@
         "$mod SHIFT, O, exec, hyprctl keyword decoration:active_opacity 1.0"
         "$mod SHIFT, O, exec, hyprctl keyword decoration:inactive_opacity 1.0"
         "$mod, O, exec, hyprctl keyword decoration:active_opacity 0.9"
-        "$mod, O, exec, hyprctl keyword decoration:inactive_opacity 0.8"
+        "$mod, O, exec, hyprctl keyword decoration:inactive_opacity 0.7"
 
       ]
       ++ (
