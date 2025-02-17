@@ -25,13 +25,12 @@
 
     # Music and Wallpaper
     swww
-    hyprpaper
 
     # File Manager
     ranger
 
     # Power menu
-    wlogout
+    # wlogout -  added in options
     pavucontrol
   ];
 
@@ -57,7 +56,7 @@
         "$mod, D, exec, pkill -USR1 wofi || wofi --show drun" # Toggle application launcher
         "$mod, R, exec, pkill -USR1 wofi || wofi --show run" # Toggle command launcher
         "$mod, E, exec, pidof kitty && pkill kitty || kitty ranger" # Toggle file manager
-        "$mod, L, exec, wlogout" # Power menu
+        "$mod, L, exec, hyprlock " # Lock screen
         "$mod, U, exec, pidof pavucontrol && pkill pavucontrol || pavucontrol" # Toggle audio control panel
       ]
       ++ (
@@ -82,7 +81,6 @@
   # Add waybar
   programs.waybar = {
     enable = true;
-    package = pkgs.waybar;
     settings = [
       {
         layer = "top";
@@ -91,12 +89,8 @@
         modules-center = [ "clock" ];
         modules-right = [ "pulseaudio" "tray" ];
         pulseaudio = {
-          format = "{icon} {volume}%";
-          format-muted = "󰝟";
+          format = "{volume}%";
           on-click = "pidof pavucontrol && pkill pavucontrol || pavucontrol";  # Toggle Pavucontrol
-          format-icons = {
-            default = [ "" "" "" ];
-          };
         };
       }
     ];
@@ -105,14 +99,76 @@
   # Hyprpaper config
   services.hyprpaper = {
     enable = true;
-    package = pkgs.hyprpaper;
     settings = {
       preload = [ "/home/dan/Pictures/wallpapers/bebop.png" ]; # Preload wallpaper
       wallpaper = [ "DP-2,/home/dan/Pictures/wallpapers/bebop.png" ]; # Corrected wallpaper setting
       interval = 600;
     };
   };
+  
+  # Hyprlock config
+  programs.hyprlock = {
+    enable = true;
+    settings = {
+      general = {
+        disable_loading_bar = true;
+        grace = 0;
+        hide_cursor = true;
+        no_fade_in = true;
+        no_fade_out = true;
+      };
+      background = [
+        {
+          monitor = "";
+          # TODO: change this to dynamic path or in dotfiles with flake
+          path = "/home/dan/Pictures/wallpapers/bebop.png";
+          blur_passes = 2;
+          blur_size = 5;
+          noise = 0.1;
+        }
+      ];
+      input-field = [
+        {
+          size = "200, 50";
+          position = "0, -80";
+          monitor = "";
+          dots_size = 0.1;
+          dots_rounding = 0;
+          fade_on_empty = false;
+          outline_thickness = 1;
+          rounding = 0;
+          shadow_passes = 1;
+          placeholder_text = "?";
+          fail_text = "nope";
+          inner_color = "rgba(0, 0, 0, 0.5)";
+          outer_color = "rgba(255, 255, 255, 0.5)";
+          font_color = "rgba(255, 255, 255, 0.8)";
+        }
+      ];
+    };
+  };
 
+  # Wlogout config
+  programs.wlogout = {
+    enable = true;
+    layout = [
+      {
+        label = "lock";
+        action = "hyprlock";
+        text = "lock";
+      }
+      {
+        label = "shutdown";
+        action = "systemctl poweroff";
+        text = "Power Off";
+      }
+      {
+        label = "logout";
+        action = "hyprctl dispatch exit";
+        text = "Logout";
+      }
+    ];
+  };
   # Set the cursor theme.
   home.pointerCursor = {
     gtk.enable = true;
