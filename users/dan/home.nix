@@ -57,6 +57,7 @@
         "$mod, R, exec, pkill -USR1 wofi || wofi --show run" # Toggle command launcher
         "$mod, E, exec, pidof kitty && pkill kitty || kitty ranger" # Toggle file manager
         "$mod, L, exec, hyprlock " # Lock screen
+        "$mod, P, exec, wlogout" # Launch power menu
         "$mod, U, exec, pidof pavucontrol && pkill pavucontrol || pavucontrol" # Toggle audio control panel
       ]
       ++ (
@@ -153,22 +154,23 @@
     enable = true;
     layout = [
       {
-        label = "lock";
-        action = "hyprlock";
-        text = "lock";
+        label = "logout";
+        action = "hyprctl dispatch exit";
+        text = "Logout";
+      }
+      {
+        label = "reboot";
+        action = "systemctl reboot";
+        text = "Reboot";
       }
       {
         label = "shutdown";
         action = "systemctl poweroff";
         text = "Power Off";
       }
-      {
-        label = "logout";
-        action = "hyprctl dispatch exit";
-        text = "Logout";
-      }
     ];
   };
+
   # Set the cursor theme.
   home.pointerCursor = {
     gtk.enable = true;
