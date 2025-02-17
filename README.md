@@ -1,25 +1,29 @@
 # Basic Nix Config
 
+- run in this folder to apply configuration
+ ```sh
+ sudo nixos-rebuild switch --flake .
+ ```
+
+
+### References
+https://nixos-and-flakes.thiscute.world/nixos-with-flakes/start-using-home-manager
+
+
+# cmds
 ## Update:
 nix flake update
 
 ## Rebuild:
 nixos-rebuild switch --flake .
 
-# Updating the System
-## Update flake.lock
-nix flake update
+## Other user
+# Deploy the flake.nix located in the current directory,
+# with the nixosConfiguration's name `my-nixos`
+sudo nixos-rebuild switch --flake .#my-nixos
 
-## Or replace only the specific input, such as home-manager:
-nix flake update home-manager
-
-## Apply the updates
-sudo nixos-rebuild switch --flake .
-
-## Or to update flake.lock & apply with one command 
-## (i.e. same as running "nix flake update" before)
-sudo nixos-rebuild switch --recreate-lock-file --flake .
-
+# Deploy the flake.nix located at the default location (/etc/nixos)
+sudo nixos-rebuild switch
 
 # Viewing and Deleting Historical Data 
 ## Query all available historical versions 

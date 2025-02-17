@@ -35,11 +35,15 @@
     enable = true;
     settings = {
       "$mod" = "SUPER";
+      input = {
+        kb_layout = "br";
+        kb_variant = "abnt2";
+      };
       bind = [
         "$mod, W, killactive" # Close window
         "$mod, Return, exec, kitty" # Launch terminal
         "$mod, F, exec, firefox" # Launch browser
-        "$mod, B, exec, pkill -USR1 waybar || waybar" # Toggle waybar
+        "$mod, B, exec, pkill waybar || waybar" # Toggle waybar
 
         "$mod, S, exec, grim - | wl-copy" # Fullscreen screenshot to clipboard
         # File Manager keybind
@@ -64,6 +68,7 @@
     };
     extraConfig = ''
       exec-once = swww init # Initialize swww wallpaper manager
+      exec-once = waybar # Auto-start waybar
     '';
   };
 
