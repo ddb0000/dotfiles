@@ -32,7 +32,7 @@
 
     # File Manager
     ranger
-
+    
     # Power menu
     # wlogout -  added in options
     pavucontrol

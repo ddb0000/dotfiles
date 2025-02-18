@@ -6,9 +6,7 @@
 
 - [x] Waybar customization
 
-- [ ] Add stylix
-
-- [ ] Add night mode by default (stylix)
+- [ ] Add dunst and libnotify
 
 - [ ] Add media player (ncmcpp, cava, etc.)
 

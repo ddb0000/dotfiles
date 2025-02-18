@@ -129,7 +129,7 @@
   # Environment Variables for Wayland Apps
   environment.sessionVariables = {
     # If your cursor becomes invisible
-    WLR_NO_HARDWARE_CURSORS = "0";
+    WLR_NO_HARDWARE_CURSORS = "1";
     # Hint Electron apps to use Wayland
     NIXOS_OZONE_WL = "1";
   };
