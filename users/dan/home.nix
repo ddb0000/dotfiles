@@ -58,6 +58,9 @@
         follow_mouse =  2;
       };
       cursor.no_warps = true;
+      cursor.inactive_timeout = 2;
+      cursor.hide_on_key_press = true;
+
       bindm = [
         "$mod, mouse:272, movewindow"
         "$mod, mouse:273, resizewindow"
