@@ -9,7 +9,6 @@
 
   # The home.packages option to install Nix packages (Move to Home Manager options)
   home.packages = with pkgs; [
-    kitty
     vscode
     git-crypt
     gnupg
@@ -26,6 +25,8 @@
     slurp
     wl-clipboard
 
+    waypaper
+    swww
     # Timer
     termdown
 
@@ -36,7 +37,11 @@
     # wlogout -  added in options
     pavucontrol
   ];
-
+  programs.kitty = {
+    enable = true;
+    themeFile = "Wombat";
+  };
+  programs.chromium.enable = true;
   # Hyprland Confs
   wayland.windowManager.hyprland = {
     enable = true;
@@ -97,12 +102,20 @@
         "$mod SHIFT, right, movewindow, r"
         "$mod SHIFT, up, movewindow, u"
         "$mod SHIFT, down, movewindow, d"
+        "$mod CTRL, left, resizeactive, -80 0"
+        "$mod CTRL, right, resizeactive, 80 0"
+        "$mod CTRL, up, resizeactive, 0 -80"
+        "$mod CTRL, down, resizeactive, 0 80"
 
         # Toggle opacity ($mod + O = enable, $mod + SHIFT + O = disable)
         "$mod SHIFT, O, exec, hyprctl keyword decoration:active_opacity 1.0"
         "$mod SHIFT, O, exec, hyprctl keyword decoration:inactive_opacity 1.0"
         "$mod, O, exec, hyprctl keyword decoration:active_opacity 0.9"
         "$mod, O, exec, hyprctl keyword decoration:inactive_opacity 0.7"
+
+        # Wallpaper
+        "$mod SHIFT, W, exec, pgrep -x waypaper > /dev/null && pkill waypaper || waypaper"
+        "$mod ALT, W, exec, waypaper --random"
 
       ]
       ++ (
@@ -117,13 +130,43 @@
         )
         9)
       );
+      windowrulev2 = [
+        # General Rules
+        "float, title:^(Picture-in-Picture)$"
+        "size 480 270, title:^(Picture-in-Picture)$"
+        "move 100%-854 100%-480, title:^(Picture-in-Picture)$"
+        "float,class:^(file_progress)$"
+        "float,class:^(confirm)$"
+        "float,class:^(dialog)$"
+        "float,class:^(download)$"
+        "float,class:^(notification)$"
+        "float,class:^(error)$"
+        "float,class:^(confirmreset)$"
+        "float,title:^(Open File)$"
+        "float,title:^(branchdialog)$"
+        "float,title:^(Confirm to replace files)$"
+        "float,title:^(File Operation Progress)$"
+      ];
+      windowrule = [
+        # Existing waypaper rules
+        "float, ^(waypaper)$"
+        "center, ^(waypaper)$"
+        "size 800 600, ^(waypaper)$"
+        
+        # Updated pavucontrol rules with correct class
+        "float, ^(org.pulseaudio.pavucontrol)$"
+        "size 400 600, ^(org.pulseaudio.pavucontrol)$"
+        "move 100%-420 60, ^(org.pulseaudio.pavucontrol)$"
+        "pin, ^(org.pulseaudio.pavucontrol)$"
+      ];
     };
     extraConfig = ''
       exec-once = waybar # Auto-start waybar
+      exec-once = waypaper --restore # Auto-start waypaper
       exec-once = hyprctl setcursor Bibata-Original-Classic 20 # Set cursor theme
     '';
   };
-
+  
   # Add waybar
   programs.waybar = {
     enable = true;
@@ -150,7 +193,7 @@
 
   # Hyprpaper config
   services.hyprpaper = {
-    enable = true;
+    enable = false;
     settings = {
       preload = [ "/home/dan/Pictures/wallpapers/bebop.png" ]; # Preload wallpaper
       wallpaper = [ "DP-2,/home/dan/Pictures/wallpapers/bebop.png" ]; # Corrected wallpaper setting
