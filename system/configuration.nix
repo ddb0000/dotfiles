@@ -66,10 +66,6 @@
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
-  # Enable the GNOME Desktop Environment.
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
-  
   # Hyprland config
   programs.hyprland = {
     enable = true;
@@ -147,6 +143,7 @@
     nixd
     nil
     # etc...
+    greetd.tuigreet
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -172,4 +169,19 @@
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "24.11"; # Did you read the comment?
 
+  # Add greetd configuration
+  services.greetd = {
+    enable = true;
+    settings = {
+      default_session = {
+        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd Hyprland";
+        user = "greeter";
+      };
+    };
+  };
+
+  # Add environment variable for greetd
+  environment.etc."greetd/environments".text = ''
+    Hyprland
+  '';
 }

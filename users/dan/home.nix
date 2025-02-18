@@ -17,22 +17,32 @@
     mpd
     mpc-cli
     yt-dlp
+    mpv
+    streamlink
+    vlc
+  
+    # Utilities
     wofi
     microfetch
+    mako
 
     # Screenshots
     grim
     slurp
     wl-clipboard
 
+    # Wallpaper
     waypaper
     swww
+    mpvpaper
+
     # Timer
     termdown
 
     # File Manager
-    ranger
-    
+    yazi
+    ueberzugpp
+    joshuto
     # Power menu
     # wlogout -  added in options
     pavucontrol
@@ -85,7 +95,7 @@
 
         "$mod, D, exec, pkill -USR1 wofi || wofi --show drun" # Toggle application launcher
         "$mod, R, exec, pkill -USR1 wofi || wofi --show run" # Toggle command launcher
-        "$mod, E, exec, pidof kitty && pkill kitty || kitty ranger" # Toggle file manager
+        "$mod, E, exec, pidof kitty && pkill kitty || kitty yazi" # Toggle file manager
         "$mod, L, exec, hyprlock " # Lock screen
         "$mod, P, exec, wlogout" # Launch power menu
         "$mod, U, exec, pidof pavucontrol && pkill pavucontrol || pavucontrol" # Toggle audio control panel
@@ -164,6 +174,8 @@
       exec-once = waybar # Auto-start waybar
       exec-once = waypaper --restore # Auto-start waypaper
       exec-once = hyprctl setcursor Bibata-Original-Classic 20 # Set cursor theme
+      exec-once = code .
+      exec-once = code .dotfiles
     '';
   };
   
@@ -193,7 +205,7 @@
 
   # Hyprpaper config
   services.hyprpaper = {
-    enable = false;
+    enable = true;
     settings = {
       preload = [ "/home/dan/Pictures/wallpapers/bebop.png" ]; # Preload wallpaper
       wallpaper = [ "DP-2,/home/dan/Pictures/wallpapers/bebop.png" ]; # Corrected wallpaper setting
