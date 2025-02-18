@@ -4,7 +4,7 @@
 
 - [x] Add blur to windows
 
-- [ ] Waybar customization (add night mode by default)
+- [x] Waybar customization
 - [ ] Add night mode by default (system-wide dark mode)
 
 - [ ] Add media player (ncmcpp, cava, etc.)

@@ -7,24 +7,27 @@
   # DO NOT CHANGE
   home.stateVersion = "24.11"; # DO NOT CHANGE
 
-  # The home.packages option to install Nix packages
+  # The home.packages option to install Nix packages (Move to Home Manager options)
   home.packages = with pkgs; [
     kitty
     vscode
     git-crypt
     gnupg
+
+    # Music
     mpd
     mpc-cli
     yt-dlp
-    wofi # or dmenu if on X11
+    wofi
     microfetch
+
     # Screenshots
     grim
     slurp
     wl-clipboard
 
-    # Music and Wallpaper
-    swww
+    # Timer
+    termdown
 
     # File Manager
     ranger
@@ -116,7 +119,6 @@
       );
     };
     extraConfig = ''
-      exec-once = swww init # Initialize swww wallpaper manager
       exec-once = waybar # Auto-start waybar
       exec-once = hyprctl setcursor Bibata-Original-Classic 20 # Set cursor theme
     '';
@@ -259,7 +261,6 @@
   # Add GH CLI
   programs.gh = {
     enable = true;
-    package = pkgs.gh;
   };
 
   # Install firefox.
