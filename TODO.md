@@ -6,8 +6,6 @@
 
 - [x] Waybar customization
 
-- [ ] Add dunst and libnotify
-
 - [ ] Add media player (ncmcpp, cava, etc.)
 
 - [ ] Clean VM setup
