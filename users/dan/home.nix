@@ -9,7 +9,6 @@
 
   # The home.packages option to install Nix packages (Move to Home Manager options)
   home.packages = with pkgs; [
-    vscode
     git-crypt
     gnupg
 
@@ -45,11 +44,22 @@
     # Power menu
     # wlogout -  added in options
     pavucontrol
+
+    # Shell enhancements
+    zsh-powerlevel10k
+    lsd
+    bat
+
+    # Add font
+    meslo-lgs-nf  # p10k recommended font
+    libnotify   # For notify-send
   ];
+
   programs.kitty = {
     enable = true;
     themeFile = "Wombat";
   };
+
   programs.chromium.enable = true;
   # Hyprland Confs
   wayland.windowManager.hyprland = {
@@ -98,6 +108,7 @@
         "$mod, L, exec, hyprlock " # Lock screen
         "$mod, P, exec, wlogout" # Launch power menu
         "$mod, U, exec, pidof pavucontrol && pkill pavucontrol || pavucontrol" # Toggle audio control panel
+        "$mod, M, exec, ${config.home.homeDirectory}/.local/bin/nixmenu" # Launch nixmenu
 
         # Window layout toggles
         "$mod ALT, F, togglefloating"
@@ -170,6 +181,7 @@
       ];
     };
     extraConfig = ''
+      exec-once = mako # Auto-start mako (notifications)
       exec-once = waybar # Auto-start waybar
       exec-once = waypaper --restore # Auto-start waypaper
       exec-once = hyprctl setcursor Bibata-Original-Classic 20 # Set cursor theme
@@ -196,22 +208,24 @@
       }
     ];
     style = ''
-    window.waybar {
-      background-color: rgba(0, 0, 0, 0.8);
+    window#waybar {
+      background-color: rgba(0, 0, 0, 0);
     }
     '';
   };
 
+  /* for swww
   # Hyprpaper config
   services.hyprpaper = {
-    enable = true;
+    enable = false;
     settings = {
       preload = [ "/home/dan/Pictures/wallpapers/bebop.png" ]; # Preload wallpaper
       wallpaper = [ "DP-2,/home/dan/Pictures/wallpapers/bebop.png" ]; # Corrected wallpaper setting
       interval = 600;
     };
   };
-  
+  */
+
   # Hyprlock config
   programs.hyprlock = {
     enable = true;
@@ -317,13 +331,52 @@
     enable = true;
   };
 
+  # Add VSCode
+  programs.vscode = {
+    enable = true;
+    userSettings = {
+      "editor.fontFamily" = "MesloLGS NF";
+      "terminal.integrated.fontFamily" = "MesloLGS NF";
+    };
+  };
+
   # Install firefox.
   programs.firefox.enable = true;
 
+  # ZSH Configuration
+  programs.zsh = {
+    enable = true;
+    enableAutosuggestions = true;
+    syntaxHighlighting.enable = true;
+    
+    plugins = [
+      {
+        name = "powerlevel10k";
+        src = pkgs.zsh-powerlevel10k;
+        file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
+      }
+    ];
+
+    initExtraFirst = ''
+      # Enable Powerlevel10k instant prompt
+      if [[ -r "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
+        source "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh"
+      fi
+    '';
+
+    initExtra = ''
+      [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+    '';
+  };
+
   home.sessionVariables = {
-    # EDITOR = "emacs";
+    EDITOR = "code";    # Changed from 'nvim'
+    VISUAL = "code";    # Added for completeness
   };
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
+
+  # Add fonts configuration
+  fonts.fontconfig.enable = true;
 }
