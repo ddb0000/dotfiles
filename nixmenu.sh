@@ -67,7 +67,7 @@ show_cookbook_menu() {
     while true; do
         clear
         print -P "%F{yellow}=== COOKBOOK MENU ===%f\n"
-        print -P "%F{green}1%f) Stream Twitch"
+        print -P "%F{green}1%f) Stream"
         print -P "%F{green}2%f) Stream to Wallpaper"
         print -P "%F{green}3%f) Back to Main Menu"
         echo
@@ -78,10 +78,16 @@ show_cookbook_menu() {
         
         case $choice in
             1)
-                mpv https://www.twitch.tv/paveer2
+                print -Pn "\n%F{blue}Enter stream URL/path (default: twitch.tv/paveer2): %f"
+                read stream_input
+                stream_source=${stream_input:-"https://www.twitch.tv/paveer2"}
+                mpv "$stream_source"
                 ;;
             2)
-                mpvpaper -o "loop" DP-2 "https://www.twitch.tv/paveer2"
+                print -Pn "\n%F{blue}Enter stream URL/path (default: twitch.tv/paveer2): %f"
+                read stream_input
+                stream_source=${stream_input:-"https://www.twitch.tv/paveer2"}
+                mpvpaper -o "loop" DP-2 "$stream_source"
                 ;;
             3)
                 return
