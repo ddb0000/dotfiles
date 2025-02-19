@@ -18,7 +18,6 @@
     mpc-cli
     yt-dlp
     mpv
-    streamlink
     vlc
   
     # Utilities
