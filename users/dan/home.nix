@@ -334,10 +334,10 @@
   # Add VSCode
   programs.vscode = {
     enable = true;
-    userSettings = {
-      "editor.fontFamily" = "MesloLGS NF";
-      "terminal.integrated.fontFamily" = "MesloLGS NF";
-    };
+    # userSettings = {
+    #   "editor.fontFamily" = "MesloLGS NF";
+    #   "terminal.integrated.fontFamily" = "MesloLGS NF";
+    # };
   };
 
   # Install firefox.
