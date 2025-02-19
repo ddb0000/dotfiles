@@ -119,7 +119,12 @@
     isNormalUser = true;
     description = "dan";
     extraGroups = [ "networkmanager" "wheel" ];
+    shell = pkgs.zsh;
   };
+
+  # Enable zsh
+  programs.zsh.enable = true;
+  environment.shells = with pkgs; [ zsh ];
 
 
   # Environment Variables for Wayland Apps
