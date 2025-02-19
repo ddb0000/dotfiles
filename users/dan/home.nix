@@ -7,13 +7,13 @@
   # DO NOT CHANGE
   home.stateVersion = "24.11"; # DO NOT CHANGE
 
-  # The home.packages option to install Nix packages (Move to Home Manager options)
+  # General packages
   home.packages = with pkgs; [
     git-crypt
     gnupg
 
     # Music
-    mpd
+    cava
     mpc-cli
     yt-dlp
     mpv
@@ -41,8 +41,8 @@
     yazi
     ueberzugpp
     joshuto
+
     # Power menu
-    # wlogout -  added in options
     pavucontrol
 
     # Shell enhancements
@@ -51,16 +51,64 @@
     bat
 
     # Add font
-    meslo-lgs-nf  # p10k recommended font
-    libnotify   # For notify-send
+    meslo-lgs-nf
+    libnotify
+
+    # Fun
+    krabby
+    cbonsai
+    pipes
+    cmatrix
+    fortune
+    lolcat
+    asciiquarium
+    hollywood
+    viu
+    chafa
+    jp2a
+
+    # System monitoring
+    atop
+    btop
+    htop
+    gotop
+    s-tui
+    nload
+    glances
   ];
 
+  # Kitty terminal
   programs.kitty = {
     enable = true;
     themeFile = "Wombat";
   };
 
+  # Chromium
   programs.chromium.enable = true;
+
+  # MPD Configuration
+  services.mpd = {
+    enable = true;
+    musicDirectory = "${config.home.homeDirectory}/Music";
+    dataDir = "${config.home.homeDirectory}/.mpd";
+    extraConfig = ''
+      audio_output {
+        type "pulse"
+        name "MPD"
+      }
+    '';
+
+  };
+
+  # ncmpcpp Configuration
+  programs.ncmpcpp = {
+    enable = true;
+        mpdMusicDir = "/home/dan/Music";
+    settings = {
+      mpd_music_dir = "/home/dan/Music"; 
+      ncmpcpp_directory = "/home/dan/.ncmpcpp";
+    };
+  };
   # Hyprland Confs
   wayland.windowManager.hyprland = {
     enable = true;
@@ -70,6 +118,11 @@
       general = {
         snap.enabled = true;
         resize_on_border = true;
+        no_border_on_floating = true;
+        "col.inactive_border" = "rgba(ffffff4d)"; # White with 0.3 opacity
+        "col.active_border" = "rgba(ffffff4d)";   # White with 0.3 opacity
+        "col.nogroup_border" =  "rgba(ffffff4d)"; # White with 0.3 opacity
+        "col.nogroup_border_active" = "rgba(ffffff4d)"; # White with 0.3 opacity
         gaps_in = 2;
         gaps_out = 10;
       };
@@ -168,12 +221,12 @@
         "float,title:^(File Operation Progress)$"
       ];
       windowrule = [
-        # Existing waypaper rules
+        # Waypaper rules
         "float, ^(waypaper)$"
         "center, ^(waypaper)$"
         "size 800 600, ^(waypaper)$"
         
-        # Updated pavucontrol rules with correct class
+        # Pauvcontrol rules
         "float, ^(org.pulseaudio.pavucontrol)$"
         "size 400 600, ^(org.pulseaudio.pavucontrol)$"
         "move 100%-420 60, ^(org.pulseaudio.pavucontrol)$"
@@ -189,8 +242,8 @@
       exec-once = code .dotfiles
     '';
   };
-  
-  # Add waybar
+
+  # Waybar
   programs.waybar = {
     enable = true;
     settings = [
@@ -226,7 +279,7 @@
   };
   */
 
-  # Hyprlock config
+  # Hyprlock
   programs.hyprlock = {
     enable = true;
     settings = {
@@ -290,7 +343,7 @@
     ];
   };
 
-  # Set the cursor theme.
+  # Cursor theme.
   home.pointerCursor = {
     hyprcursor.enable = true;
     # x11.enable = true;
@@ -299,7 +352,7 @@
     size = 12;
   };
 
-  # Set the GTK theme, icon theme and font.
+  # GTK theme, icon theme and font.
   gtk = {
     enable = true;
 
@@ -319,19 +372,19 @@
     };
   };
 
-  # Add git config
+  # Git config
   programs.git = {
     enable = true;
     userName = "nocivic";
     userEmail = "nocivic@proton.me";
   };
 
-  # Add GH CLI
+  # GH CLI
   programs.gh = {
     enable = true;
   };
 
-  # Add VSCode
+  # VSCode
   programs.vscode = {
     enable = true;
     # userSettings = {
@@ -340,10 +393,10 @@
     # };
   };
 
-  # Install firefox.
+  # Firefox.
   programs.firefox.enable = true;
 
-  # ZSH Configuration
+  # ZSH
   programs.zsh = {
     enable = true;
     enableAutosuggestions = true;
@@ -370,13 +423,13 @@
   };
 
   home.sessionVariables = {
-    EDITOR = "code";    # Changed from 'nvim'
-    VISUAL = "code";    # Added for completeness
+    EDITOR = "code";
+    VISUAL = "code";
   };
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
-  # Add fonts configuration
+  # Fonts configuration
   fonts.fontconfig.enable = true;
 }

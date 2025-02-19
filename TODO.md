@@ -1,16 +1,8 @@
 # TODO
 ## active
-- [x] Waybar and Hyprland customization (reduce gaps, shortcuts for tiling/floating)
-
-- [x] Add blur to windows
-
-- [x] Waybar customization
-
-- [ ] Add media player (ncmcpp, cava, etc.)
-
 - [ ] Clean VM setup
 
-- [ ] System cleanup and maintenance (scheduled garbage collection)
+- [ ] System cleanup and maintenance
 
 ## backlog
 - [ ] Review codebase for improvements
